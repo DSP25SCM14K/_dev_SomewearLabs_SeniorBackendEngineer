@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dev Kumar — Senior Backend Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #060c1a;
+      --bg2:       #0a1224;
+      --bg3:       #0f1a30;
+      --card:      #0d1829;
+      --border:    #1a2840;
+      --border2:   #243555;
+      --cyan:      #00d4ff;
+      --cyan2:     #00a8cc;
+      --purple:    #7c3aed;
+      --purple2:   #a855f7;
+      --green:     #10b981;
+      --amber:     #f59e0b;
+      --red:       #ef4444;
+      --text:      #e2e8f0;
+      --muted:     #94a3b8;
+      --faint:     #475569;
+      --font-head: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── STARFIELD ─────────────────────────────────────── */
+    #starfield {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ─── NAV ────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; width: 100%;
+      z-index: 100;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(6,12,26,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--cyan);
+      letter-spacing: 0.5px;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cyan); }
+
+    /* ─── LAYOUT ─────────────────────────────────────────── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 5rem 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--cyan);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    .section-divider {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      border-radius: 2px;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ─── HERO ───────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 6rem;
+      max-width: 1100px;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--cyan);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 32px; height: 2px;
+      background: var(--cyan);
+    }
+    .hero-name {
+      font-family: var(--font-head);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      margin-bottom: 0.5rem;
+    }
+    .hero-name span { color: var(--cyan); }
+    .hero-role {
+      font-family: var(--font-head);
+      font-size: clamp(1.2rem, 2.5vw, 1.75rem);
+      color: var(--muted);
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+    }
+    .hero-tagline {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 620px;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+    .hero-tagline strong { color: var(--cyan); }
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      padding: 0.75rem 1.75rem;
+      background: linear-gradient(135deg, var(--cyan), var(--cyan2));
+      color: #060c1a;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+    .btn-secondary {
+      padding: 0.75rem 1.75rem;
+      background: transparent;
+      color: var(--cyan);
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: 1px solid var(--cyan);
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover { background: rgba(0,212,255,0.08); transform: translateY(-2px); }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 4rem;
+      flex-wrap: wrap;
+    }
+    .hero-stat-val {
+      font-family: var(--font-head);
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--cyan);
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ─── PASSION SECTION ────────────────────────────────── */
+    .passion-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    @media (max-width: 700px) { .passion-grid { grid-template-columns: 1fr; } }
+    .passion-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .passion-card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-4px);
+    }
+    .passion-card.wide { grid-column: span 2; }
+    @media (max-width: 700px) { .passion-card.wide { grid-column: span 1; } }
+    .passion-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .passion-card h3 {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--cyan);
+      margin-bottom: 0.5rem;
+    }
+    .passion-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+    .passion-card p strong { color: var(--text); }
+
+    /* ─── DIAGRAMS ───────────────────────────────────────── */
+    .diagram-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+    .diagram-title {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--cyan);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .diagram-title::before {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+      display: inline-block;
+    }
+    svg text { font-family: 'Inter', sans-serif; }
+
+    /* ─── SKILLS ─────────────────────────────────────────── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+    .skill-group {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .skill-group h3 {
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 1rem;
+    }
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid;
+    }
+    .tag-cyan   { background: rgba(0,212,255,0.08); border-color: rgba(0,212,255,0.3); color: var(--cyan); }
+    .tag-purple { background: rgba(124,58,237,0.1); border-color: rgba(124,58,237,0.35); color: var(--purple2); }
+    .tag-green  { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.3); color: var(--green); }
+    .tag-amber  { background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.3); color: var(--amber); }
+
+    /* ─── EXPERIENCE ─────────────────────────────────────── */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.5rem; bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--cyan), var(--purple), transparent);
+    }
+    .timeline-item {
+      position: relative;
+      padding-bottom: 3rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.4rem;
+      top: 0.4rem;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 12px var(--cyan);
+    }
+    .timeline-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+    .timeline-role {
+      font-family: var(--font-head);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .timeline-date {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--cyan);
+      background: rgba(0,212,255,0.08);
+      border: 1px solid rgba(0,212,255,0.2);
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .timeline-company {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .timeline-company span { color: var(--purple2); font-weight: 600; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .exp-bullets li {
+      font-size: 0.9rem;
+      color: var(--muted);
+      padding-left: 1.25rem;
+      position: relative;
+      line-height: 1.65;
+    }
+    .exp-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--cyan);
+      font-size: 0.75rem;
+      top: 0.15rem;
+    }
+    .exp-bullets li strong { color: var(--text); }
+    .metric-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+    .metric-chip {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      padding: 0.2rem 0.65rem;
+      border-radius: 4px;
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.25);
+      color: var(--green);
+    }
+
+    /* ─── PROJECTS ───────────────────────────────────────── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+    }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .project-card:hover { border-color: var(--purple2); transform: translateY(-4px); }
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+    .project-name {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .project-link {
+      font-size: 0.8rem;
+      color: var(--cyan);
+      text-decoration: none;
+      border: 1px solid rgba(0,212,255,0.3);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .project-link:hover { background: rgba(0,212,255,0.1); }
+    .project-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      flex: 1;
+      margin-bottom: 1rem;
+      line-height: 1.65;
+    }
+
+    /* ─── EDUCATION ──────────────────────────────────────── */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .edu-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+    }
+    .edu-degree {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--cyan);
+      margin-bottom: 0.25rem;
+    }
+    .edu-school { font-size: 0.9rem; color: var(--muted); }
+
+    .pub-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+    }
+    .pub-title {
+      font-family: var(--font-head);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      font-style: italic;
+    }
+    .pub-venue { font-size: 0.85rem; color: var(--purple2); margin-bottom: 0.75rem; }
+    .pub-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .pub-link {
+      font-size: 0.8rem;
+      color: var(--cyan);
+      text-decoration: none;
+      border: 1px solid rgba(0,212,255,0.25);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .pub-link:hover { background: rgba(0,212,255,0.1); }
+
+    /* ─── CONTACT ────────────────────────────────────────── */
+    #contact {
+      text-align: center;
+    }
+    .contact-tagline {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 2rem;
+    }
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .contact-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .contact-chip:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px); }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--faint);
+      font-size: 0.8rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── ANIMATE ON SCROLL ──────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── SCROLLBAR ──────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--cyan2); }
+  </style>
+</head>
+<body>
+
+<!-- Starfield canvas -->
+<canvas id="starfield"></canvas>
+
+<!-- ─── NAV ─────────────────────────────────────────────── -->
+<nav>
+  <span class="nav-brand">DK</span>
+  <ul class="nav-links">
+    <li><a href="#passion">Why Somewear</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ─── HERO ─────────────────────────────────────────────── -->
+<section id="hero">
+  <p class="hero-eyebrow">Senior Backend Engineer · 8+ Years</p>
+  <h1 class="hero-name">Dev <span>Kumar</span></h1>
+  <p class="hero-role">Building Systems Where Every Packet Matters</p>
+  <p class="hero-tagline">
+    I architect <strong>distributed backends</strong> for
+    <strong>bandwidth-constrained, satellite-connected</strong> environments —
+    exactly the kind of mission-critical infrastructure that powers
+    Somewear Labs' off-grid connectivity platform.
+  </p>
+  <div class="hero-cta">
+    <a href="#passion" class="btn-primary">Why Somewear Labs →</a>
+    <a href="https://github.com/devthedevil" class="btn-secondary" target="_blank">GitHub</a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="hero-stat-val">8+</div>
+      <div class="hero-stat-label">Years Engineering</div>
+    </div>
+    <div>
+      <div class="hero-stat-val">99.99%</div>
+      <div class="hero-stat-label">Uptime Achieved</div>
+    </div>
+    <div>
+      <div class="hero-stat-val">55%</div>
+      <div class="hero-stat-label">Latency Reduced</div>
+    </div>
+    <div>
+      <div class="hero-stat-val">50K+</div>
+      <div class="hero-stat-label">Events/sec Handled</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHY SOMEWEAR LABS ─────────────────────────────────── -->
+<section id="passion">
+  <p class="section-label">My Why</p>
+  <h2 class="section-title">Why Somewear Labs Excites Me</h2>
+  <div class="section-divider"></div>
+
+  <div class="passion-grid fade-up">
+    <div class="passion-card wide">
+      <div class="passion-icon">🛰️</div>
+      <h3>Satellite-Connected Systems — I've Been Here Before</h3>
+      <p>
+        At <strong>Tata Steel</strong>, I architected a satellite-assisted connectivity layer spanning
+        4 geographically dispersed industrial sites — designing fallback protocols and
+        packet-efficient data formats that maintained reliability under degraded network conditions.
+        Somewear Labs is building exactly this, at consumer and defense scale.
+        This isn't a stretch for me — it's my native domain.
+      </p>
+    </div>
+
+    <div class="passion-card">
+      <div class="passion-icon">📡</div>
+      <h3>Bandwidth-Constrained Networking</h3>
+      <p>
+        Satellite links are precious — every byte counts.
+        I've designed <strong>gRPC-based pipelines</strong> and <strong>Kafka event streams</strong>
+        optimized for high-reliability, low-bandwidth industrial networks,
+        cutting data propagation latency by <strong>55%</strong>.
+        That discipline translates directly to Somewear's hotspot backend.
+      </p>
+    </div>
+
+    <div class="passion-card">
+      <div class="passion-icon">🔐</div>
+      <h3>Security-Critical API Design</h3>
+      <p>
+        I've built <strong>OAuth2, rate-limiting, and end-to-end encryption</strong>
+        for enterprise-grade APIs at Sprouts AI. Somewear's defense and
+        outdoor use cases demand the same zero-tolerance security posture —
+        exactly the discipline I apply to every API surface I own.
+      </p>
+    </div>
+
+    <div class="passion-card">
+      <div class="passion-icon">⚡</div>
+      <h3>Real-Time Data Exchange</h3>
+      <p>
+        From stock market pipelines processing <strong>50K events/sec</strong>
+        to sub-100ms latency API endpoints — real-time, reliable data exchange
+        is my speciality. Off-grid messaging and GPS tracking demand
+        exactly this class of backend engineering.
+      </p>
+    </div>
+
+    <div class="passion-card">
+      <div class="passion-icon">🌐</div>
+      <h3>JVM-First Engineering</h3>
+      <p>
+        <strong>Kotlin + Spring Boot + gRPC</strong> is my primary stack. I've used it
+        across Sprouts AI, Resilience Inc, and Tata Steel to build
+        microservices that scale to 10,000+ concurrent users at 99.99%
+        uptime — the same reliability bar Somewear's field devices depend on.
+      </p>
+    </div>
+
+    <div class="passion-card">
+      <div class="passion-icon">🏕️</div>
+      <h3>The Mission Matters</h3>
+      <p>
+        Somewear Labs keeps people safe in the most remote places on Earth.
+        That's not just a product — it's a purpose. Building the backend
+        infrastructure that powers <strong>life-safety communications</strong>
+        off-grid is the kind of work that demands — and deserves — an engineer
+        who treats reliability as non-negotiable.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ARCHITECTURE DIAGRAMS ─────────────────────────────── -->
+<section id="architecture">
+  <p class="section-label">System Thinking</p>
+  <h2 class="section-title">Architecture I Design & Build</h2>
+  <div class="section-divider"></div>
+
+  <!-- DIAGRAM 1: Satellite Backend Architecture -->
+  <div class="diagram-wrap fade-up">
+    <div class="diagram-title">Satellite-Connected Backend Architecture (Somewear Labs Alignment)</div>
+    <svg viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <defs>
+        <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#00d4ff" opacity="0.7"/>
+        </marker>
+        <marker id="arrow2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#7c3aed" opacity="0.7"/>
+        </marker>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <linearGradient id="satGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.3"/>
+          <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:0.3"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Background grid lines -->
+      <g opacity="0.06">
+        <line x1="0" y1="60" x2="900" y2="60" stroke="#00d4ff" stroke-width="0.5"/>
+        <line x1="0" y1="120" x2="900" y2="120" stroke="#00d4ff" stroke-width="0.5"/>
+        <line x1="0" y1="180" x2="900" y2="180" stroke="#00d4ff" stroke-width="0.5"/>
+        <line x1="0" y1="240" x2="900" y2="240" stroke="#00d4ff" stroke-width="0.5"/>
+        <line x1="0" y1="300" x2="900" y2="300" stroke="#00d4ff" stroke-width="0.5"/>
+        <line x1="150" y1="0" x2="150" y2="380" stroke="#00d4ff" stroke-width="0.5"/>
+        <line x1="300" y1="0" x2="300" y2="380" stroke="#00d4ff" stroke-width="0.5"/>
+        <line x1="450" y1="0" x2="450" y2="380" stroke="#00d4ff" stroke-width="0.5"/>
+        <line x1="600" y1="0" x2="600" y2="380" stroke="#00d4ff" stroke-width="0.5"/>
+        <line x1="750" y1="0" x2="750" y2="380" stroke="#00d4ff" stroke-width="0.5"/>
+      </g>
+
+      <!-- SATELLITE -->
+      <g transform="translate(440,28)">
+        <rect x="-28" y="-14" width="56" height="28" rx="4" fill="url(#satGrad)" stroke="#00d4ff" stroke-width="1.5" filter="url(#glow)"/>
+        <rect x="-48" y="-5" width="20" height="10" rx="2" fill="#00d4ff" opacity="0.4"/>
+        <rect x="28" y="-5" width="20" height="10" rx="2" fill="#00d4ff" opacity="0.4"/>
+        <rect x="-4" y="-4" width="8" height="8" rx="1" fill="#00d4ff" opacity="0.7"/>
+        <text x="0" y="24" text-anchor="middle" fill="#00d4ff" font-size="10" font-weight="600">SATELLITE</text>
+      </g>
+
+      <!-- Signal waves from satellite -->
+      <path d="M400,56 Q360,100 310,120" stroke="#00d4ff" stroke-width="1" fill="none" stroke-dasharray="4,3" opacity="0.5"/>
+      <path d="M440,62 Q440,90 440,110" stroke="#00d4ff" stroke-width="1" fill="none" stroke-dasharray="4,3" opacity="0.5"/>
+      <path d="M480,56 Q520,100 570,120" stroke="#00d4ff" stroke-width="1" fill="none" stroke-dasharray="4,3" opacity="0.5"/>
+
+      <!-- FIELD DEVICES (left) -->
+      <g transform="translate(90,120)">
+        <rect x="-55" y="-22" width="110" height="44" rx="6" fill="#0d1829" stroke="#1a2840" stroke-width="1.5"/>
+        <rect x="-55" y="-22" width="110" height="44" rx="6" fill="none" stroke="#7c3aed" stroke-width="1" opacity="0.6"/>
+        <text x="0" y="-4" text-anchor="middle" fill="#a855f7" font-size="9" font-weight="600">FIELD DEVICES</text>
+        <text x="0" y="10" text-anchor="middle" fill="#64748b" font-size="8">Hotspot · GPS · SOS</text>
+      </g>
+
+      <!-- GROUND STATION (left-center) -->
+      <g transform="translate(280,120)">
+        <rect x="-55" y="-22" width="110" height="44" rx="6" fill="#0d1829" stroke="#1a2840" stroke-width="1.5"/>
+        <rect x="-55" y="-22" width="110" height="44" rx="6" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.6"/>
+        <text x="0" y="-4" text-anchor="middle" fill="#00d4ff" font-size="9" font-weight="600">GROUND STATION</text>
+        <text x="0" y="10" text-anchor="middle" fill="#64748b" font-size="8">Satellite Gateway</text>
+      </g>
+
+      <!-- API GATEWAY (center) -->
+      <g transform="translate(450,200)">
+        <rect x="-60" y="-24" width="120" height="48" rx="6" fill="#0d1829" stroke="#00d4ff" stroke-width="2"/>
+        <text x="0" y="-5" text-anchor="middle" fill="#00d4ff" font-size="10" font-weight="700">API GATEWAY</text>
+        <text x="0" y="10" text-anchor="middle" fill="#64748b" font-size="8">gRPC · REST · TLS</text>
+      </g>
+
+      <!-- BACKEND SERVICES -->
+      <g transform="translate(450,305)">
+        <rect x="-165" y="-22" width="330" height="50" rx="8" fill="#0d1829" stroke="#1a2840" stroke-width="1"/>
+        <!-- individual services -->
+        <rect x="-155" y="-14" width="90" height="34" rx="4" fill="#111d35" stroke="#1a2840" stroke-width="1"/>
+        <text x="-110" y="2" text-anchor="middle" fill="#10b981" font-size="8" font-weight="600">Location Svc</text>
+        <text x="-110" y="14" text-anchor="middle" fill="#475569" font-size="7">Kotlin+gRPC</text>
+        <rect x="-55" y="-14" width="90" height="34" rx="4" fill="#111d35" stroke="#1a2840" stroke-width="1"/>
+        <text x="0" y="2" text-anchor="middle" fill="#10b981" font-size="8" font-weight="600">Messaging Svc</text>
+        <text x="0" y="14" text-anchor="middle" fill="#475569" font-size="7">Kotlin+Kafka</text>
+        <rect x="45" y="-14" width="100" height="34" rx="4" fill="#111d35" stroke="#1a2840" stroke-width="1"/>
+        <text x="95" y="2" text-anchor="middle" fill="#10b981" font-size="8" font-weight="600">Device Mgmt</text>
+        <text x="95" y="14" text-anchor="middle" fill="#475569" font-size="7">Spring Boot</text>
+      </g>
+
+      <!-- DATA STORES (right) -->
+      <g transform="translate(730,200)">
+        <rect x="-60" y="-55" width="120" height="44" rx="6" fill="#0d1829" stroke="#1a2840" stroke-width="1.5"/>
+        <rect x="-60" y="-55" width="120" height="44" rx="6" fill="none" stroke="#f59e0b" stroke-width="1" opacity="0.5"/>
+        <text x="0" y="-34" text-anchor="middle" fill="#f59e0b" font-size="9" font-weight="600">PostgreSQL</text>
+        <text x="0" y="-20" text-anchor="middle" fill="#64748b" font-size="8">Persistent Store</text>
+
+        <rect x="-60" y="5" width="120" height="44" rx="6" fill="#0d1829" stroke="#1a2840" stroke-width="1.5"/>
+        <rect x="-60" y="5" width="120" height="44" rx="6" fill="none" stroke="#ef4444" stroke-width="1" opacity="0.5"/>
+        <text x="0" y="26" text-anchor="middle" fill="#ef4444" font-size="9" font-weight="600">Redis</text>
+        <text x="0" y="40" text-anchor="middle" fill="#64748b" font-size="8">Session · Cache</text>
+      </g>
+
+      <!-- AWS INFRA label (far right) -->
+      <g transform="translate(830,200)">
+        <text x="0" y="-5" text-anchor="middle" fill="#475569" font-size="8" transform="rotate(-90)">AWS · EC2 · VPC · S3</text>
+      </g>
+
+      <!-- ARROWS -->
+      <!-- Field → Ground Station -->
+      <line x1="145" y1="120" x2="225" y2="120" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow2)" opacity="0.7"/>
+      <!-- Ground Station → API Gateway -->
+      <line x1="335" y1="130" x2="390" y2="185" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.8"/>
+      <!-- API Gateway → Backend Services -->
+      <line x1="450" y1="224" x2="450" y2="283" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.8"/>
+      <!-- API Gateway → Data Stores -->
+      <line x1="510" y1="200" x2="670" y2="185" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.6"/>
+
+      <!-- Labels on arrows -->
+      <text x="185" y="112" fill="#7c3aed" font-size="8" opacity="0.8">Iridium/Starlink</text>
+      <text x="345" y="163" fill="#00d4ff" font-size="8" opacity="0.7">TLS/gRPC</text>
+    </svg>
+  </div>
+
+  <!-- DIAGRAM 2: Real-time Data Pipeline -->
+  <div class="diagram-wrap fade-up">
+    <div class="diagram-title">Real-Time Data Pipeline — Low-Latency Design</div>
+    <svg viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <defs>
+        <marker id="arr3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#10b981" opacity="0.9"/>
+        </marker>
+      </defs>
+
+      <!-- Stage boxes -->
+      <!-- IoT / Device -->
+      <g transform="translate(80,100)">
+        <rect x="-60" y="-35" width="120" height="70" rx="8" fill="#0d1829" stroke="#7c3aed" stroke-width="1.5"/>
+        <text x="0" y="-12" text-anchor="middle" fill="#a855f7" font-size="11" font-weight="700">IoT Devices</text>
+        <text x="0" y="5" text-anchor="middle" fill="#64748b" font-size="9">GPS · Msgs · SOS</text>
+        <text x="0" y="20" text-anchor="middle" fill="#475569" font-size="8">Satellite uplink</text>
+      </g>
+
+      <!-- Kafka -->
+      <g transform="translate(250,100)">
+        <rect x="-60" y="-35" width="120" height="70" rx="8" fill="#0d1829" stroke="#f59e0b" stroke-width="1.5"/>
+        <text x="0" y="-12" text-anchor="middle" fill="#f59e0b" font-size="11" font-weight="700">Kafka</text>
+        <text x="0" y="5" text-anchor="middle" fill="#64748b" font-size="9">Event Streaming</text>
+        <text x="0" y="20" text-anchor="middle" fill="#475569" font-size="8">50K+ events/sec</text>
+      </g>
+
+      <!-- Stream Processor -->
+      <g transform="translate(430,100)">
+        <rect x="-65" y="-35" width="130" height="70" rx="8" fill="#0d1829" stroke="#00d4ff" stroke-width="1.5"/>
+        <text x="0" y="-12" text-anchor="middle" fill="#00d4ff" font-size="11" font-weight="700">Stream Processor</text>
+        <text x="0" y="5" text-anchor="middle" fill="#64748b" font-size="9">Kotlin · gRPC</text>
+        <text x="0" y="20" text-anchor="middle" fill="#475569" font-size="8">sub-10ms latency</text>
+      </g>
+
+      <!-- Redis Cache -->
+      <g transform="translate(620,70)">
+        <rect x="-55" y="-28" width="110" height="56" rx="8" fill="#0d1829" stroke="#ef4444" stroke-width="1.5"/>
+        <text x="0" y="-8" text-anchor="middle" fill="#ef4444" font-size="10" font-weight="700">Redis</text>
+        <text x="0" y="8" text-anchor="middle" fill="#64748b" font-size="9">Cache Layer</text>
+        <text x="0" y="20" text-anchor="middle" fill="#475569" font-size="8">sub-50ms</text>
+      </g>
+
+      <!-- PostgreSQL -->
+      <g transform="translate(620,150)">
+        <rect x="-55" y="-28" width="110" height="56" rx="8" fill="#0d1829" stroke="#f59e0b" stroke-width="1.5"/>
+        <text x="0" y="-8" text-anchor="middle" fill="#f59e0b" font-size="10" font-weight="700">PostgreSQL</text>
+        <text x="0" y="8" text-anchor="middle" fill="#64748b" font-size="9">Persist Layer</text>
+        <text x="0" y="20" text-anchor="middle" fill="#475569" font-size="8">Optimized queries</text>
+      </g>
+
+      <!-- API / Clients -->
+      <g transform="translate(810,100)">
+        <rect x="-60" y="-35" width="120" height="70" rx="8" fill="#0d1829" stroke="#10b981" stroke-width="1.5"/>
+        <text x="0" y="-12" text-anchor="middle" fill="#10b981" font-size="11" font-weight="700">API / Clients</text>
+        <text x="0" y="5" text-anchor="middle" fill="#64748b" font-size="9">gRPC · REST</text>
+        <text x="0" y="20" text-anchor="middle" fill="#475569" font-size="8">Mobile · Dashboard</text>
+      </g>
+
+      <!-- Arrows -->
+      <line x1="140" y1="100" x2="190" y2="100" stroke="#10b981" stroke-width="2" marker-end="url(#arr3)"/>
+      <line x1="310" y1="100" x2="365" y2="100" stroke="#10b981" stroke-width="2" marker-end="url(#arr3)"/>
+      <line x1="495" y1="85" x2="565" y2="75" stroke="#10b981" stroke-width="1.5" marker-end="url(#arr3)"/>
+      <line x1="495" y1="115" x2="565" y2="145" stroke="#10b981" stroke-width="1.5" marker-end="url(#arr3)"/>
+      <line x1="675" y1="75" x2="750" y2="90" stroke="#10b981" stroke-width="1.5" marker-end="url(#arr3)"/>
+      <line x1="675" y1="145" x2="750" y2="115" stroke="#10b981" stroke-width="1.5" marker-end="url(#arr3)"/>
+
+      <!-- Latency labels -->
+      <text x="158" y="92" fill="#10b981" font-size="8">uplink</text>
+      <text x="318" y="92" fill="#10b981" font-size="8">stream</text>
+    </svg>
+  </div>
+
+  <!-- DIAGRAM 3: My Skills vs Somewear Needs -->
+  <div class="diagram-wrap fade-up">
+    <div class="diagram-title">My Experience → Somewear Labs Requirements</div>
+    <svg viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <!-- Left column: My experience -->
+      <text x="170" y="22" text-anchor="middle" fill="#94a3b8" font-size="11" font-weight="600">MY EXPERIENCE</text>
+      <line x1="50" y1="30" x2="290" y2="30" stroke="#1a2840" stroke-width="1"/>
+
+      <g>
+        <!-- Items left -->
+        <rect x="50" y="40" width="240" height="32" rx="6" fill="#0d1829" stroke="#7c3aed" stroke-width="1" opacity="0.9"/>
+        <text x="170" y="61" text-anchor="middle" fill="#a855f7" font-size="10">Satellite connectivity @ Tata Steel</text>
+
+        <rect x="50" y="80" width="240" height="32" rx="6" fill="#0d1829" stroke="#7c3aed" stroke-width="1" opacity="0.9"/>
+        <text x="170" y="101" text-anchor="middle" fill="#a855f7" font-size="10">gRPC + Kafka bandwidth-optimized pipelines</text>
+
+        <rect x="50" y="120" width="240" height="32" rx="6" fill="#0d1829" stroke="#7c3aed" stroke-width="1" opacity="0.9"/>
+        <text x="170" y="141" text-anchor="middle" fill="#a855f7" font-size="10">Kotlin + Spring Boot microservices (99.99%)</text>
+
+        <rect x="50" y="160" width="240" height="32" rx="6" fill="#0d1829" stroke="#7c3aed" stroke-width="1" opacity="0.9"/>
+        <text x="170" y="181" text-anchor="middle" fill="#a855f7" font-size="10">Security-critical APIs · OAuth2 · E2E encryption</text>
+      </g>
+
+      <!-- Center arrows -->
+      <g>
+        <line x1="295" y1="56" x2="600" y2="56" stroke="#00d4ff" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.6"/>
+        <line x1="295" y1="96" x2="600" y2="96" stroke="#00d4ff" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.6"/>
+        <line x1="295" y1="136" x2="600" y2="136" stroke="#00d4ff" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.6"/>
+        <line x1="295" y1="176" x2="600" y2="176" stroke="#00d4ff" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.6"/>
+        <text x="447" y="78" text-anchor="middle" fill="#00d4ff" font-size="9" opacity="0.7">DIRECTLY MAPS TO</text>
+      </g>
+
+      <!-- Right column: Somewear needs -->
+      <text x="730" y="22" text-anchor="middle" fill="#94a3b8" font-size="11" font-weight="600">SOMEWEAR LABS NEEDS</text>
+      <line x1="605" y1="30" x2="855" y2="30" stroke="#1a2840" stroke-width="1"/>
+
+      <g>
+        <rect x="605" y="40" width="245" height="32" rx="6" fill="#0d1829" stroke="#10b981" stroke-width="1" opacity="0.9"/>
+        <text x="727" y="61" text-anchor="middle" fill="#10b981" font-size="10">Satellite communication backend</text>
+
+        <rect x="605" y="80" width="245" height="32" rx="6" fill="#0d1829" stroke="#10b981" stroke-width="1" opacity="0.9"/>
+        <text x="727" y="101" text-anchor="middle" fill="#10b981" font-size="10">Bandwidth-constrained data exchange</text>
+
+        <rect x="605" y="120" width="245" height="32" rx="6" fill="#0d1829" stroke="#10b981" stroke-width="1" opacity="0.9"/>
+        <text x="727" y="141" text-anchor="middle" fill="#10b981" font-size="10">JVM-based distributed backend (JD)</text>
+
+        <rect x="605" y="160" width="245" height="32" rx="6" fill="#0d1829" stroke="#10b981" stroke-width="1" opacity="0.9"/>
+        <text x="727" y="181" text-anchor="middle" fill="#10b981" font-size="10">Security-first API design</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<!-- ─── SKILLS ────────────────────────────────────────────── -->
+<section id="skills">
+  <p class="section-label">Technical Stack</p>
+  <h2 class="section-title">Skills & Technologies</h2>
+  <div class="section-divider"></div>
+
+  <div class="skills-grid fade-up">
+    <div class="skill-group">
+      <h3>Backend & JVM</h3>
+      <div class="skill-tags">
+        <span class="tag tag-cyan">Kotlin</span>
+        <span class="tag tag-cyan">Java</span>
+        <span class="tag tag-cyan">Spring Boot</span>
+        <span class="tag tag-cyan">gRPC</span>
+        <span class="tag tag-cyan">FastAPI</span>
+        <span class="tag tag-cyan">Microservices</span>
+        <span class="tag tag-cyan">REST APIs</span>
+        <span class="tag tag-cyan">Spring MVC</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Databases & Caching</h3>
+      <div class="skill-tags">
+        <span class="tag tag-amber">PostgreSQL</span>
+        <span class="tag tag-amber">Redis</span>
+        <span class="tag tag-amber">MySQL</span>
+        <span class="tag tag-amber">MongoDB</span>
+        <span class="tag tag-amber">Snowflake</span>
+        <span class="tag tag-amber">Oracle PL/SQL</span>
+        <span class="tag tag-amber">Hadoop</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Cloud & Infrastructure</h3>
+      <div class="skill-tags">
+        <span class="tag tag-green">AWS EC2/S3/VPC</span>
+        <span class="tag tag-green">GCP</span>
+        <span class="tag tag-green">Docker</span>
+        <span class="tag tag-green">Kubernetes</span>
+        <span class="tag tag-green">Terraform</span>
+        <span class="tag tag-green">Kafka</span>
+        <span class="tag tag-green">CI/CD</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Systems & Networking</h3>
+      <div class="skill-tags">
+        <span class="tag tag-purple">Real-Time Data Exchange</span>
+        <span class="tag tag-purple">Bandwidth-Constrained Systems</span>
+        <span class="tag tag-purple">Satellite Connectivity</span>
+        <span class="tag tag-purple">Distributed Systems</span>
+        <span class="tag tag-purple">gRPC / RDMA</span>
+        <span class="tag tag-purple">Security APIs</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Languages & Tools</h3>
+      <div class="skill-tags">
+        <span class="tag tag-cyan">Python</span>
+        <span class="tag tag-cyan">C++</span>
+        <span class="tag tag-cyan">TypeScript</span>
+        <span class="tag tag-cyan">Scala</span>
+        <span class="tag tag-cyan">Jenkins</span>
+        <span class="tag tag-cyan">TDD</span>
+        <span class="tag tag-cyan">Agile/Scrum</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Security</h3>
+      <div class="skill-tags">
+        <span class="tag tag-purple">OAuth2</span>
+        <span class="tag tag-purple">Rate Limiting</span>
+        <span class="tag tag-purple">E2E Encryption</span>
+        <span class="tag tag-purple">TLS/mTLS</span>
+        <span class="tag tag-purple">Enterprise Compliance</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EXPERIENCE ────────────────────────────────────────── -->
+<section id="experience">
+  <p class="section-label">Professional Journey</p>
+  <h2 class="section-title">Work Experience</h2>
+  <div class="section-divider"></div>
+
+  <div class="timeline fade-up">
+
+    <!-- Sprouts AI -->
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <div class="timeline-role">Software Engineer</div>
+        <div class="timeline-date">Mar 2025 – Present</div>
+      </div>
+      <div class="timeline-company"><span>Sprouts AI</span> · Chicago, IL</div>
+      <ul class="exp-bullets">
+        <li>Architected high-reliability backend services in <strong>Kotlin and Python/FastAPI</strong>, orchestrating real-time data exchange across OpenAI APIs, Greenhouse ATS, and calendar services via <strong>gRPC and REST</strong> — achieving <strong>sub-100ms latency</strong> on critical workflow endpoints.</li>
+        <li>Designed and deployed <strong>Redis-backed caching layer</strong> and PostgreSQL-optimized query pipelines for candidate-matching workloads, reducing API response times by 42% and supporting <strong>10,000+ concurrent requests</strong>.</li>
+        <li>Built security-critical API integrations implementing <strong>OAuth2, rate limiting, and end-to-end encryption</strong> to meet enterprise-grade compliance requirements.</li>
+        <li>Owned full-stack infrastructure on <strong>AWS (EC2, S3, VPC)</strong> with Docker/Kubernetes orchestration, establishing CI/CD pipelines achieving <strong>99.9% uptime</strong>.</li>
+      </ul>
+      <div class="metric-chips">
+        <span class="metric-chip">sub-100ms latency</span>
+        <span class="metric-chip">42% API speedup</span>
+        <span class="metric-chip">10K+ concurrent users</span>
+        <span class="metric-chip">99.9% uptime</span>
+      </div>
+    </div>
+
+    <!-- Resilience Inc -->
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <div class="timeline-role">Software Engineer</div>
+        <div class="timeline-date">Jun 2023 – Feb 2025</div>
+      </div>
+      <div class="timeline-company"><span>Resilience Inc</span> · Chicago, IL</div>
+      <ul class="exp-bullets">
+        <li>Redesigned and scaled backend services using <strong>Kotlin/Spring Boot microservices</strong> and PostgreSQL, reducing page load times by 30% at 99.95% uptime; implemented <strong>satellite-assisted data sync</strong> for offline-first mobile clients in bandwidth-constrained environments.</li>
+        <li>Architected RESTful and gRPC API layers connecting distributed backend services, reducing error rates by <strong>45%</strong> across all endpoints.</li>
+        <li>Built GCP cloud infrastructure for the Selena platform, implementing <strong>Redis session caching and Kafka event streaming</strong>, cutting pipeline latency by 35%.</li>
+        <li>Introduced TDD, automated testing pipelines, and code review processes that reduced production incidents by <strong>50%</strong> over two quarters.</li>
+      </ul>
+      <div class="metric-chips">
+        <span class="metric-chip">30% faster page loads</span>
+        <span class="metric-chip">45% fewer errors</span>
+        <span class="metric-chip">35% less latency</span>
+        <span class="metric-chip">50% fewer incidents</span>
+      </div>
+    </div>
+
+    <!-- Tata Steel -->
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <div class="timeline-role">Software Engineer & IT Project Manager</div>
+        <div class="timeline-date">Apr 2018 – May 2023</div>
+      </div>
+      <div class="timeline-company"><span>Tata Steel</span></div>
+      <ul class="exp-bullets">
+        <li>Architected cloud-native, microservices-based backend in <strong>Kotlin and Java Spring Boot</strong> with PostgreSQL and Redis — serving 10,000+ users with <strong>99.99% uptime</strong> and 40% improvement in API response times.</li>
+        <li>Designed and deployed <strong>real-time data exchange pipelines over mesh-networked and bandwidth-constrained industrial networks</strong> using Kafka and gRPC, cutting data propagation latency by <strong>55%</strong>.</li>
+        <li>Integrated <strong>satellite-assisted connectivity layer</strong> for remote field operations across 4 geographically dispersed sites — architecting fallback protocols and packet-efficient data formats for degraded network conditions.</li>
+        <li>Led cross-functional team of <strong>15+ engineers</strong>, establishing Kotlin/Java coding standards and Agile SDLC practices that improved system reliability from 94% to <strong>99.9%</strong>.</li>
+      </ul>
+      <div class="metric-chips">
+        <span class="metric-chip">99.99% uptime</span>
+        <span class="metric-chip">55% latency reduction</span>
+        <span class="metric-chip">40% API speedup</span>
+        <span class="metric-chip">15+ engineers led</span>
+        <span class="metric-chip">Satellite connectivity</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── PROJECTS ───────────────────────────────────────────── -->
+<section id="projects">
+  <p class="section-label">Featured Work</p>
+  <h2 class="section-title">Projects</h2>
+  <div class="section-divider"></div>
+
+  <div class="projects-grid fade-up">
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-name">AskMyStore</div>
+        <a href="https://github.com/devthedevil/AskMyStore" class="project-link" target="_blank">↗ Code</a>
+      </div>
+      <p class="project-desc">
+        Production-grade RAG backend with FastAPI, FAISS vector indexing, and Redis caching for real-time product Q&A.
+        Processes 301 semantic chunks in under 1.8s with sub-50ms query latency. Deployed on GCP with full observability stack.
+      </p>
+      <div class="skill-tags">
+        <span class="tag tag-cyan">Python</span>
+        <span class="tag tag-cyan">FastAPI</span>
+        <span class="tag tag-cyan">FAISS</span>
+        <span class="tag tag-amber">PostgreSQL</span>
+        <span class="tag tag-amber">Redis</span>
+        <span class="tag tag-green">GCP</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-name">Realtime Stock Pipeline</div>
+        <a href="https://github.com/devthedevil/Realtime-Stock-Market-Analysis" class="project-link" target="_blank">↗ Code</a>
+      </div>
+      <p class="project-desc">
+        Real-time data exchange pipeline using Kafka, PostgreSQL, and AWS.
+        Ingests and processes high-frequency market data streams under bandwidth and latency constraints,
+        achieving sub-10ms end-to-end throughput for 50,000+ events/sec.
+      </p>
+      <div class="skill-tags">
+        <span class="tag tag-cyan">Python</span>
+        <span class="tag tag-amber">Kafka</span>
+        <span class="tag tag-amber">PostgreSQL</span>
+        <span class="tag tag-green">AWS</span>
+        <span class="tag tag-purple">50K events/sec</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EDUCATION & PUBLICATION ───────────────────────────── -->
+<section id="education">
+  <p class="section-label">Academic Background</p>
+  <h2 class="section-title">Education & Research</h2>
+  <div class="section-divider"></div>
+
+  <div class="edu-grid fade-up">
+    <div class="edu-card">
+      <div class="edu-degree">M.S. Computer Science</div>
+      <div class="edu-school">Illinois Institute of Technology</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">B.Tech, Computer Science</div>
+      <div class="edu-school">National Institute of Technology, Calicut</div>
+    </div>
+  </div>
+
+  <div class="pub-card fade-up">
+    <div class="pub-title">"Comparative Study of Movie Recommendation System using Feature Engineering and Improved Error Function"</div>
+    <div class="pub-venue">IEEE INCOFT 2022 · DOI: 10.1109/INCOFT55651.2022.10094480</div>
+    <div class="pub-links">
+      <a href="https://ieeexplore.ieee.org/document/10094480" class="pub-link" target="_blank">IEEE Paper</a>
+      <a href="https://github.com/devthedevil/Comparative-Study-of-Movie-Recommendation-System/blob/main/Netflix_Movie.ipynb" class="pub-link" target="_blank">Source Code</a>
+      <a href="https://drive.google.com/file/d/1rayr6Cht6quyLUJOXWOAcBi_rxQp2Ol0/view" class="pub-link" target="_blank">Certificate</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ────────────────────────────────────────────── -->
+<section id="contact">
+  <p class="section-label">Get In Touch</p>
+  <h2 class="section-title">Let's Build Together</h2>
+  <div class="section-divider" style="margin-left:auto;margin-right:auto;"></div>
+  <p class="contact-tagline">
+    Interested in discussing how I can help Somewear Labs build the
+    next generation of satellite-connected backend infrastructure?
+  </p>
+  <div class="contact-links">
+    <a href="mailto:devkumar.dklv@gmail.com" class="contact-chip">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      devkumar.dklv@gmail.com
+    </a>
+    <a href="tel:3125328223" class="contact-chip">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012.18 1H5.1a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+      312 532 8223
+    </a>
+    <a href="https://github.com/devthedevil" class="contact-chip" target="_blank">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      devthedevil
+    </a>
+    <a href="https://leetcode.com/u/dev_kumar_dklv/" class="contact-chip" target="_blank">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M13.483 0a1.374 1.374 0 00-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 00-1.209 2.104 5.35 5.35 0 00-.125.513 5.527 5.527 0 00.062 2.362 5.83 5.83 0 00.349 1.017 5.938 5.938 0 001.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 00-1.951-.003l-2.396 2.392a3.021 3.021 0 01-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 01.066-.523 2.545 2.545 0 01.619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 00-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0013.483 0z"/></svg>
+      LeetCode
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>Built with precision · Dev Kumar · Senior Backend Engineer · 2025</p>
+</footer>
+
+<!-- ─── SCRIPTS ────────────────────────────────────────────── -->
+<script>
+  // Starfield
+  (function () {
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function initStars() {
+      stars = [];
+      for (let i = 0; i < 200; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.5 + 0.2,
+          a: Math.random(),
+          speed: Math.random() * 0.3 + 0.05,
+          twinkle: Math.random() * Math.PI * 2,
+        });
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(s => {
+        s.twinkle += s.speed * 0.04;
+        const alpha = s.a * (0.5 + 0.5 * Math.sin(s.twinkle));
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(150, 200, 255, ${alpha})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+
+    resize();
+    initStars();
+    draw();
+    window.addEventListener('resize', () => { resize(); initStars(); });
+  })();
+
+  // Intersection Observer for fade-up
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Smooth active nav link
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--cyan)' : '';
+    });
+  });
+</script>
+
+</body>
+</html>
